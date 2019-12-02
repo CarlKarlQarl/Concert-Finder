@@ -1,12 +1,9 @@
 #Objectives/Milestones/Things-To-Do
 1. Retrieving data from PollStar API
-    * Before anything else, test that we're able to get data from them in some workable form.
-    * Or even in an unworkable form, and then find some way to make it work within Ruby.
-    * A live version would be ideal/impressive, but if it's not playing nice, we shouldn't bang our head against it too much and go with a local copy of the data.
+    * Using local copies, one for city, venue, and artist
 1. CLI interface, user menu, and prompts
-    * Likely to be a simple list of options, followed by text inputs from the user.
-    * Account for typos or bad user input (i.e. enter a word during a menu number prompt)
-    * This isn't the best place to describe it, so we should draw up a flowchart or something for this.
+    * Searching by city, artist, and venue
+    * Each search will search its own database
 1. Structure of program files
     * Ideally, we run one file, and then the rest of the program will follow. The runner.rb -> environment.rb -> etc. set-up will probably work just fine for us.
 1. Methods/searches could run in any order
