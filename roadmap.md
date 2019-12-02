@@ -3,7 +3,7 @@
     * Using local copies, one for city, venue, and artist
 1. CLI interface, user menu, and prompts
     * Searching by city, artist, and venue
-    * Each search will search its own database
+    * Each search will search its own databases
 1. Structure of program files
     * Ideally, we run one file, and then the rest of the program will follow. The runner.rb -> environment.rb -> etc. set-up will probably work just fine for us.
 1. Methods/searches could run in any order
