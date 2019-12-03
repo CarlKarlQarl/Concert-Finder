@@ -2,7 +2,7 @@ class Event
 
 attr_reader :eventId , :eventName , :venueId 
 
-    def initilize
+    def initialize
 
     end
 
@@ -29,7 +29,7 @@ attr_reader :eventId , :eventName , :venueId
 
 
     def self.load()
-        
+
     end
 
 

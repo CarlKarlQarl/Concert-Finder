@@ -3,11 +3,11 @@ class Artist
     attr_reader :artistId, :artistName, :artistType, :genres
 
 
-    def initilize( artistId, artistName, artistType, genres)
+    def initialize( artistId, artistName, artistType, genres)
     end
 
 
-    
+
 
 
 
