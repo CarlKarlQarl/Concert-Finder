@@ -1,5 +1,6 @@
 class Menu
     def start_menu
+        system "clear"
         puts "Welcome to Concert Finder"
         puts "Search for Colorado events happening in January 2020"
         main_menu
@@ -15,10 +16,13 @@ class Menu
 
         case user_input
         when "1"
+            system "clear"
             city_search_menu
         when "2"
+            system "clear"
             artist_search_menu
         when "3"
+            system "clear"
             venue_search_menu
         else
             puts "Please retry with a valid menu option."
@@ -28,7 +32,6 @@ class Menu
     end
 
     def city_search_menu
-        puts ""
         puts "--City Search--"
         print "Enter your city's zip code: "
         user_city = gets.chomp
@@ -46,15 +49,16 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
+            system "clear"
             start_menu
         else
             puts "No results found for that zip code. Try again."
+            puts ""
             city_search_menu
         end
     end
 
     def artist_search_menu
-        puts ""
         puts "--Artist Search--"
         print "Enter the artist or band's name: "
         user_artist = gets.chomp
@@ -72,15 +76,16 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
+            system "clear"
             start_menu
         else
             puts "No results found for that artist. Try again."
+            puts ""
             artist_search_menu
         end
     end
 
     def venue_search_menu
-        puts ""
         puts "--Venue Search--"
         print "Enter the venue's name: "
         user_venue = gets.chomp
@@ -98,9 +103,11 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
+            system "clear"
             start_menu
         else
             puts "No results found for that venue. Try again."
+            puts ""
             artist_search_menu
         end
     end
