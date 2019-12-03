@@ -112,6 +112,12 @@ class Menu
         end
     end
 
+    #Placeholders for searching ActiveRecord
+    #Currently returning true and false
+    #Might be better if successful returns were checked base on
+    #the length of the search result
+    #i.e. length = 0 means no results, length > 0 means success
+    
     def find_city city
         #Receives the zip code that the user entered
         #Returns events within that zip code
