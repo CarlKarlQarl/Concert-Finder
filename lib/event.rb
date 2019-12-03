@@ -1,34 +1,36 @@
 class Event
 
-attr_reader
+attr_reader :eventId , :eventName , :venueId 
 
-def initilize
+    def initialize
 
-end
+    end
 
 
-def search_by_city
-    @@all.select do  |event| 
-        
-        event.artist == artist
+    def search_by_city(cityID)
+        @@all.select do  |event| 
+            event.artist == artistID
         end
-end
-
-def search_by_artist(artist)
-    @@all.select do  |event| 
-        event.artist == artist
     end
 
-end
+    def search_by_artist(artistID)
+        @@all.select do  |event| 
+            event.artist == artistID
+        end
 
-def search_by_venue
-    @@all.select do  |event| 
-        event.artist == artist
     end
-end
+
+    def search_by_venue(venueID)
+        @@all.select do  |event| 
+            event.venue == venueID
+        end
+    end
 
 
 
+    def self.load()
+
+    end
 
 
 
