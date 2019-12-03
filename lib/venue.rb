@@ -1,9 +1,9 @@
 class Venue
-attr_reader :name, :cityid, :location
+    attr_reader :id , :name , :cityid , :location, :lat, :lng
 
-def initilize (name,cityid,location)
-    
-end
+    def initilize (name,cityid,location)
+        
+    end
 
 
 
