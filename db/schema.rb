@@ -10,27 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_204311) do
+ActiveRecord::Schema.define(version: 2019_12_04_191200) do
 
-    create_table "events", force: :cascade do |t|
-        t.string "eventName"
-        t.integer "eventId"
-        t.integer "venueID"
-      end
-  
-      create_table "artists", force: :cascade do |t|
-        t.integer "artistID"
-        t.string "artistName"
-        t.integer "artistType"
-        t.integer "genres"
-      end
-  
-      create_table "venues", force: :cascade do |t|
-        t.string "venueID"
-        t.integer "name"
-        t.string "location"
-        
-      end
-        
+  create_table "artists", force: :cascade do |t|
+    t.string "artistname"
+    t.string "genre"
   end
-  
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.date "playdate"
+    t.integer "artist_id"
+    t.integer "venue_id"
+    t.index ["artist_id"], name: "index_events_on_artist_id"
+    t.index ["venue_id"], name: "index_events_on_venue_id"
+  end
+
+  create_table "venues", force: :cascade do |t|
+    t.string "name"
+    t.date "playdate"
+    t.integer "cityid"
+    t.string "state"
+    t.string "city"
+    t.string "zip"
+    t.integer "artist_id"
+    t.integer "event_id"
+    t.index ["artist_id"], name: "index_venues_on_artist_id"
+    t.index ["event_id"], name: "index_venues_on_event_id"
+  end
+
+  add_foreign_key "events", "artists"
+  add_foreign_key "events", "venues"
+  add_foreign_key "venues", "artists"
+  add_foreign_key "venues", "events"
+end

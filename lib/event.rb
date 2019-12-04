@@ -1,24 +1,25 @@
-class Event
+class Event < ActiveRecord::Base
+    belongs_to :venue 
+    belongs_to :artist
+# attr_reader :eventID , :eventName , :venueID , :artist
+#     @@all = []
 
-attr_reader :eventID , :eventName , :venueID , :artist
-    @@all = []
 
-
-    def initialize(eventID,venueID,playDate,name,artistID)
+#     def initialize(eventID,venueID,playDate,name,artistID)
         
-        @eventID =  eventID
-        @venueID = Venue.by_id(venueID)
-        @name = name
-        @artist = Artist.by_id(artistID)
-        @@all.push(self)
-        binding.pry
-    end
+#         @eventID =  eventID
+#         @venueID = Venue.by_id(venueID)
+#         @name = name
+#         @artist = Artist.by_id(artistID)
+#         @@all.push(self)
+#         #binding.pry
+#     end
 
 
 
-    def self.all
-        @@all
-    end
+#     def self.all
+#         @@all
+#     end
 
     # def search_by_city(cityID)
     #     @@all.select do  |event| 
@@ -35,10 +36,11 @@ attr_reader :eventID , :eventName , :venueID , :artist
 
 
     def self.load(data)
+        #obsolete
         data = data.uniq
         data.each do |e|
             #binding.pry
-            Event.new(e["EventID"],e["VenueID"],e["PlayDate"],e["Name"],e["ArtistID1"])
+            Event.new(e["EventID"],e["VenueID"],e["PlayDate"],e["Name"],e["artistid"])
         end
         puts @@all.count.to_s + " Events loaded."
         sleep(0.5)

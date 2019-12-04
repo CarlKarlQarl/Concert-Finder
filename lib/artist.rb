@@ -1,20 +1,21 @@
-class Artist
+class Artist < ActiveRecord::Base
+    has_many :events
+    has_many :venues, :through => :events
+    # attr_reader :artistID, :artistName, :artistType, :genres
 
-    attr_reader :artistID, :artistName, :artistType, :genres
-
-    @@all =[]
+    # @@all =[]
 
 
-    def initialize( artistID, artistName, genres)
-        @artistID = artistID
-        @artistName = artistName
-        @genres  = genres
-        @@all.push(self)
-    end
+    # # def initialize( artistID, artistName, genres)
+    # #     @artistID = artistID
+    # #     @artistName = artistName
+    # #     @genres  = genres
+    # #     @@all.push(self)
+    # # end
 
-    def self.all
-        @@all
-    end
+    # def self.all
+    #     @@all
+    # end
 
 
     def self.load(data)
