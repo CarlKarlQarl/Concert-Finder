@@ -1,4 +1,6 @@
-require 'pry'
-require 'require_all'
-require 'colorize'
+require "bundler/setup"
+Bundler.require 
+
+
+
 require_all 'lib'

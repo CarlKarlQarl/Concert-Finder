@@ -1,23 +1,25 @@
-class Venue
-    attr_reader :venueID , :name , :cityID , :city, :state, :zip, :locaion, :lat, :lng
+class Venue < ActiveRecord::Base
+    has_many :events
+    has_many :artists, :through => :events
+    #attr_reader :venueID , :name , :cityID , :city, :state, :zip, :locaion, :lat, :lng
 
 
-    @@all = []
-    def initialize (venueID,name,cityID,city,state,zip)
-        @name = name
-        @cityID = cityID
-        @location = "#{city}, #{state}" 
-        @city = city
-        @state = state
-        @zip = zip
-        @@all.push(self)
-        #binding.pry
-    end
+    # @@all = []
+    # def initialize (venueID,name,cityID,city,state,zip)
+    #     @name = name
+    #     @cityID = cityID
+    #     @location = "#{city}, #{state}" 
+    #     @city = city
+    #     @state = state
+    #     @zip = zip
+    #     @@all.push(self)
+    #     #binding.pry
+    # end
 
 
-    def self.all
-        @@all
-    end
+    # def self.all
+    #     @@all
+    # end
 
 
 
@@ -36,7 +38,7 @@ class Venue
 
 
     def self.by_id(id)
-        binding.pry
+        #binding.pry
         all.select do |venue|
             venue.venueID == id
         end
