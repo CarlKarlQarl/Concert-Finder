@@ -1,12 +1,13 @@
 class Menu
     def start_menu
-        puts "Welcome to Concert Finder"
-        puts "Search for Colorado events happening in January 2020"
+        system "clear"
+        puts " Welcome to Concert Finder ".green.on_black
+        puts " Search for Colorado events happening in January 2020 ".green.on_black
         main_menu
     end
 
     def main_menu
-        puts "--How would you like to search for an event?--"
+        puts "--How would you like to search for an event?--".white.on_black
         puts "1) Search by city"
         puts "2) Search by artist"
         puts "3) Search by venue"
@@ -15,21 +16,24 @@ class Menu
 
         case user_input
         when "1"
+            system "clear"
             city_search_menu
         when "2"
+            system "clear"
             artist_search_menu
         when "3"
+            system "clear"
             venue_search_menu
         else
-            puts "Please retry with a valid menu option."
+            puts ""
+            puts "Please retry with a valid menu option.".red
             puts ""
             main_menu
         end
     end
 
     def city_search_menu
-        puts ""
-        puts "--City Search--"
+        puts "--City Search--".white.on_black
         print "Enter your city's zip code: "
         user_city = gets.chomp
         puts ""
@@ -46,16 +50,17 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
+            system "clear"
             start_menu
         else
             puts "No results found for that zip code. Try again."
+            puts ""
             city_search_menu
         end
     end
 
     def artist_search_menu
-        puts ""
-        puts "--Artist Search--"
+        puts "--Artist Search--".white.on_black
         print "Enter the artist or band's name: "
         user_artist = gets.chomp
         puts ""
@@ -72,16 +77,17 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
+            system "clear"
             start_menu
         else
             puts "No results found for that artist. Try again."
+            puts ""
             artist_search_menu
         end
     end
 
     def venue_search_menu
-        puts ""
-        puts "--Venue Search--"
+        puts "--Venue Search--".white.on_black
         print "Enter the venue's name: "
         user_venue = gets.chomp
         puts ""
@@ -98,12 +104,20 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
+            system "clear"
             start_menu
         else
             puts "No results found for that venue. Try again."
+            puts ""
             artist_search_menu
         end
     end
+
+    #Placeholders for searching ActiveRecord
+    #Currently returning true and false
+    #Might be better if successful returns were checked base on
+    #the length of the search result
+    #i.e. length = 0 means no results, length > 0 means success
 
     def find_city city
         #Receives the zip code that the user entered
