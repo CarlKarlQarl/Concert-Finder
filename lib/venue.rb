@@ -36,7 +36,7 @@ class Venue < ActiveRecord::Base
     end
 
     def self.find_venue(name)
-        result = all.select {|venue| venue.name.downcase.include? name.downcase}
+        result = all.select {|venue| venue.name.downcase.include? name.downcase}.uniq
 
         #binding.pry
     end
