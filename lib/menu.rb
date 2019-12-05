@@ -98,7 +98,7 @@ class Menu
                         i += 1
                     end
                     while true
-                    print "\n Select:"
+                    print "\nSelect: "
                         user_select = gets.chomp.to_i - 1
                         if user_select.between?(0,artists.count + 1)
                             #binding.pry
@@ -144,7 +144,7 @@ class Menu
         while true
 
             print "Enter the venue's name (q to quit): "
-            user_input = gets.chomp        
+            user_input = gets.chomp
             return_to_main_menu(user_input)
             puts ""
 
@@ -159,7 +159,7 @@ class Menu
                         i += 1
                     end
                     while true
-                        print "\nSelect:"
+                        print "\nSelect: "
                         user_select = gets.chomp.to_i - 1
                         #binding.pry
                         if user_select.between?(0,venues.count)
@@ -181,7 +181,7 @@ class Menu
 
             if venue
                 events = venue.get_events
-                #binding.pry                
+                #binding.pry
                 if events.count == 1 then
                     puts "\nThere is #{events.length} event for #{venue.name}:\n"
                 else
