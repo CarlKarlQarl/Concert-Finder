@@ -41,7 +41,7 @@ class Artist < ActiveRecord::Base
         end
     end
     def self.find_artist(name)
-        result = all.find {|artist| artist.artistname.downcase == name.downcase}
+        result = all.select {|artist| artist.artistname.downcase.include? name.downcase}.uniq
     end
 
 

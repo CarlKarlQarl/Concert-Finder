@@ -84,28 +84,53 @@ class Menu
             return_to_main_menu(user_input)
             puts ""
 
-
-            result = Artist.find_artist(user_input)
-            if result
-                shows = result.get_events()
-                if shows.count = 1 then
-                    puts "There is #{shows.length} event for #{user_input}:"
-                else
-                    puts "There are #{shows.length} events for #{user_input}:"
+            artists = Artist.find_artist(user_input)
+            if artists
+            
+                if artists.count > 1 then
+                    i = 0
+                    puts "#{artists.count} found for search string #{user_input}."
+                    while i < artists.count
+                        puts "[#{i +1}] #{artists[i].artistname}"
+                        i += 1
+                    end
+                    while true
+                    print "\n Select:"
+                        user_select = gets.chomp.to_i - 1
+                        if user_select.between?(0,artists.count + 1)
+                            #binding.pry
+                            artist = artists[user_select]
+                            break
+                        else
+                            return_to_main_menu(user_select)
+                            puts "Invalid selection"
+                        end
+                    end
+                elsif artists.count == 1
+                    artist = artists[0]
                 end
-                puts ""
-                
+            else
+                puts "No artists found for search string #{user_input}"
 
-                puts "#{result.artistname} played #{shows.length} show(s)..."
+            end
+
+            
+            if artist
+                shows = artist.get_events()
+
+                if shows.count == 1 then
+                    puts "\nThere is #{shows.length} event for #{artist.artistname}:\n"
+                else
+                    puts "\nThere are #{shows.length} events for #{artist.artistname}:\n"
+                end
+
                 shows.each {|event| puts "#{event.venue.name} on #{event.playdate}" }
-
-                puts ""
-                print "Press Return to go back to the main menu..."
+                print "\nPress Return to go back to the main menu..."
 
                 pause = gets
                 start_menu
             else
-                puts "No results found for '#{user_input}'. Try again."
+                puts "No artists found for '#{user_input}'. Try again."
             end
         end
     end
@@ -132,24 +157,20 @@ class Menu
                         i += 1
                     end
                     while true
-                    puts "Select:"
+                        print "\nSelect:"
                         user_select = gets.chomp.to_i - 1
                         #binding.pry
-                        if user_select.between?(0,venues.count + 1)
+                        if user_select.between?(0,venues.count)
                             #binding.pry
-                            if venues[user_select] then 
-                                venue = venues[user_select]
-                                break
-                            else
-                                puts "Invalid selection"
-                            end
+                            venue = venues[user_select]
+                            break
                         else
                             return_to_main_menu(user_select)
-
+                            puts "Invalid selection"
                         end
                     end
                 elsif venues.count == 1
-                    venue = veues[0]
+                    venue = venues[0]
                 end
             else
                 puts "No venues found for search string #{user_input}"
@@ -158,15 +179,18 @@ class Menu
 
             if venue
                 events = venue.get_events
-                #binding.pry
-                puts "Here are the upcoming events at #{venue.name}:"
-                puts ""
+                #binding.pry                
+                if events.count == 1 then
+                    puts "\nThere is #{events.length} event for #{venue.name}:\n"
+                else
+                    puts "\nThere are #{events.length} events for #{venue.name}:\n"
+                end
                 #Run find_venue again and post results here
                 #Hard coded sample below
                 events.each {|event| puts "#{event.artist.artistname} played on #{event.playdate}"}
 
                 puts ""
-                print "Press Return to go back to the main menu..."
+                print "\nPress Return to go back to the main menu..."
                 pause = gets
                 #For testing, looping back to beginning
                 start_menu
