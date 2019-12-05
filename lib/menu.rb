@@ -1,23 +1,20 @@
 class Menu
-    def start_menu
+    def main_menu
         system "clear"
         puts " Welcome to Concert History Finder ".green.on_black
         puts " Search history of #{Event.all.count} Colorado events".green.on_black
-        main_menu
-    end
 
-    def main_menu
-        system "clear"
         while true do
+            puts "--How would you like to search for an event?--".white.on_black
+            puts "1) Search by city"
+            puts "2) Search by artist"
+            puts "3) Search by venue"
+            puts "4) Display number of events per year"
+            puts "5) Display most active venues"
+            puts "0) Exit Program"
+            print "Enter a menu option: "
 
-        puts "--How would you like to search for an event?--".white.on_black
-        puts "1) Search by city"
-        puts "2) Search by artist"
-        puts "3) Search by venue"
-        puts "0) Exit Program"
-        print "Enter a menu option: "
-
-        user_input = gets.chomp
+            user_input = gets.chomp
             case user_input
             when "1"
                 city_search_menu
@@ -25,6 +22,10 @@ class Menu
                 artist_search_menu
             when "3"
                 venue_search_menu
+            when "4"
+                events_per_year_menu
+            when "5"
+                most_active_venues_menu
             when "0"
                 puts "Thank you for using Concert Finder!"
                 exit
@@ -44,7 +45,9 @@ class Menu
             user_city = gets.chomp
             return_to_main_menu user_city
             puts ""
-
+            if user_city.length == 0
+                user_city = "1"
+            end
             venues = Venue.find_cities(user_city)
 
             if venues.length == 0
@@ -67,7 +70,7 @@ class Menu
                 print "Press Return to go back to the main menu..."
 
                 pause = gets
-                start_menu
+                main_menu
             end
         end
     end
@@ -88,7 +91,7 @@ class Menu
             result = Artist.find_artist(user_input)
             if result
                 shows = result.get_events()
-                if shows.count = 1 then
+                if shows.count == 1 then
                     puts "There is #{shows.length} event for #{user_input}:"
                 else
                     puts "There are #{shows.length} events for #{user_input}:"
@@ -103,7 +106,7 @@ class Menu
                 print "Press Return to go back to the main menu..."
 
                 pause = gets
-                start_menu
+                main_menu
             else
                 puts "No results found for '#{user_input}'. Try again."
             end
@@ -161,15 +164,14 @@ class Menu
                 #binding.pry
                 puts "Here are the upcoming events at #{venue.name}:"
                 puts ""
-                #Run find_venue again and post results here
-                #Hard coded sample below
+                
                 events.each {|event| puts "#{event.artist.artistname} played on #{event.playdate}"}
 
                 puts ""
                 print "Press Return to go back to the main menu..."
+
                 pause = gets
-                #For testing, looping back to beginning
-                start_menu
+                main_menu
             else
                 puts "No results found for that venue. Try again."
                 puts ""
@@ -178,11 +180,45 @@ class Menu
         end
     end
 
+    def events_per_year_menu
+        system "clear"
+        puts "--Displaying Number of Events for each Year on Record--".white.on_black
+        puts ""
+
+        sorted_year_counts = Event.events_per_year
+
+        puts "Year : # of Events".underline
+        sorted_year_counts.each do |year_count|
+            puts "#{year_count[0]} : #{year_count[1]}"
+        end
+        
+        puts ""
+        print "Press Return to go back to the main menu..."
+        pause = gets
+        main_menu
+    end
+
+    def most_active_venues_menu
+        system "clear"
+        puts "--Displaying Top 10 Most Active Venues--".white.on_black
+        puts ""
+
+        most_active = Venue.most_active_venues
+
+        10.times do |index|
+            puts "#{most_active[index][0].name} had #{most_active[index][1]} events"
+        end
+
+        puts ""
+        print "Press Return to go back to the main menu..."
+        pause = gets
+        main_menu
+    end
 
     def return_to_main_menu choice
         if choice == "q"
             system "clear"
-            start_menu
+            main_menu
         end
     end
 end

@@ -53,7 +53,24 @@ class Event < ActiveRecord::Base
         end
     end
 
+    def self.events_per_year
+        all_years = Event.all.map do |event|
+            event["playdate"].year
+        end
 
+        year_counts = {}
+        all_years.each do |year|
+            if !year_counts[year]
+                year_counts[year] = 1
+            else
+                year_counts[year] += 1
+            end
+        end
+
+        sorted_year_counts = year_counts.sort_by do |key, value|
+            key
+        end
+    end
 
 
 end
