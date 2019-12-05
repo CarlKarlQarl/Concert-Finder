@@ -21,8 +21,11 @@ class Venue < ActiveRecord::Base
     #     @@all
     # end
 
-
-
+    def get_events()
+        Event.all.select do |event|
+            event.venue.name.downcase == self.name.downcase
+        end
+    end
 
 
     def self.by_id(id)
@@ -32,14 +35,7 @@ class Venue < ActiveRecord::Base
         end
     end
 
-    def self.find_relevant_events venues
-        relevant_venue_ids = venues.map do |venue|
-            venue["id"]
-        end
-
-        relevant_events = Event.all.select do |event|
-            relevant_venue_ids.include? event["venue_id"]
-        end
-        relevant_events
+    def self.find_venue(name)
+        result = all.find {|venue| venue.name.downcase == name.downcase}
     end
 end

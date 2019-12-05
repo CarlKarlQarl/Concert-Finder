@@ -67,15 +67,15 @@ class Menu
 
         result = Artist.find_artist(user_artist)
 
-        binding.pry
+        #binding.pry
         if result
             shows = result.get_events()
-            puts "Here are the upcoming events for #{user_artist}:"
+            puts "Here are the events for #{user_artist}:"
             puts ""
 
             #binding.pry
-            puts "#{result.artistname} is playing #{shows.length} shows..."
-            shows.each {|event| puts "#{event.venue.name} on #{event.playdate}" }
+            puts "#{result.artistname} played #{shows.length} show(s)..."
+            shows.each {|event| puts "#{event.venue.name} played at #{event.venue.name} on #{event.playdate}" }
 
 
             puts ""
@@ -96,15 +96,16 @@ class Menu
         print "Enter the venue's name: "
         user_venue = gets.chomp
         puts ""
-
-        if find_venue user_venue
+        venue = Venue.find_venue(user_venue)
+        if venue
+            events = venue.get_events
+            #binding.pry
             puts "Here are the upcoming events at #{user_venue}:"
             puts ""
             #Run find_venue again and post results here
             #Hard coded sample below
-            puts "Bon Jovi on 1/12"
-            puts "Weird Al on 1/1"
-            puts "Cher on 1/15"
+            events.each {|event| puts "#{event.artist.artistname} played on #{event.playdate}"}
+
             puts ""
             print "Press Return to go back to the main menu..."
             pause = gets
@@ -114,7 +115,7 @@ class Menu
         else
             puts "No results found for that venue. Try again."
             puts ""
-            artist_search_menu
+            venue_search_menu
         end
     end
 
