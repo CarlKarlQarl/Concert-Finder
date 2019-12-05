@@ -24,18 +24,6 @@ class Venue < ActiveRecord::Base
 
 
 
-    def self.load(data)
-        data = data.uniq
-        data.each do |e|
-            Venue.new(e["VenueID"],e["Name"],e["CityID"],e["City"],e["State"],e["Zip"])
-        end
-        puts @@all.count.to_s + " Venues loaded."
-        sleep(0.5)
-        #binding.pry
-    end
-
-
-
 
     def self.by_id(id)
         #binding.pry
@@ -44,6 +32,14 @@ class Venue < ActiveRecord::Base
         end
     end
 
+    def self.find_relevant_events venues
+        relevant_venue_ids = venues.map do |venue|
+            venue["id"]
+        end
 
-
+        relevant_events = Event.all.select do |event|
+            relevant_venue_ids.include? event["venue_id"]
+        end
+        relevant_events
+    end
 end
