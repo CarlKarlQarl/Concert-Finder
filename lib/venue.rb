@@ -47,4 +47,19 @@ class Venue < ActiveRecord::Base
             venue.zip == zip
         end
     end
+
+    def self.most_active_venues
+        venue_event_count = {}
+        Event.all.each do |event|
+            if !venue_event_count[event.venue]
+                venue_event_count[event.venue] = 1
+            else
+                venue_event_count[event.venue] += 1
+            end
+        end
+
+        most_active = venue_event_count.sort_by do |key, value|
+            value
+        end.reverse
+    end
 end
