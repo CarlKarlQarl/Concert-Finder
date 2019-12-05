@@ -46,13 +46,9 @@ class Menu
         puts "--City Search--".white.on_black
         print "Enter your city's zip code (q to quit): "
         user_city = gets.chomp
-        if user_city.downcase == "q"
-            system "clear"
-            main_menu
-        end
+        return_to_main_menu user_city
         puts ""
 
-        return_to_main_menu user_city
 
         if Venue.find_cities(user_city).length == 0
             puts "No results found for that zip code."
@@ -86,17 +82,13 @@ class Menu
         puts "--Artist Search--".white.on_black
         puts "There are #{Artist.all.count} artists on record"
 
-        result = Artist.find_artist(user_artist)
-
         #binding.pry
         while true
             print "Enter the artist or band's name (q to quit): "
             user_artist = gets.chomp
+            return_to_main_menu user_artist
             puts ""
-            if user_artist.downcase == "q"
-                system "clear"
-                main_menu
-            end
+
 
             result = Artist.find_artist(user_artist)
             if result
@@ -120,18 +112,6 @@ class Menu
                 puts ""
                 #artist_search_menu
             end
-
-            puts ""
-            print "Press Return to go back to the main menu..."
-            pause = gets
-            #For testing, looping back to beginning
-            #system "clear"
-            start_menu
-        else
-            puts "No results found for that artist. Try again."
-            puts ""
-            artist_search_menu
-
         end
     end
 
@@ -141,12 +121,9 @@ class Menu
         puts "There are #{Venue.all.count} venues on record"
         print "Enter the venue's name (q to quit): "
         user_venue = gets.chomp        
-        if user_venue.downcase == "q"
-            main_menu
-        end
+        return_to_main_menu user_venue
         puts ""
 
-        return_to_main_menu user_venue
 
         venue = Venue.find_venue(user_venue)
         if venue
