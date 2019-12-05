@@ -21,8 +21,11 @@ class Venue < ActiveRecord::Base
     #     @@all
     # end
 
-
-
+    def get_events()
+        Event.all.select do |event|
+            event.venue.name.downcase == self.name.downcase
+        end
+    end
 
     def self.load(data)
         data = data.uniq
@@ -44,6 +47,8 @@ class Venue < ActiveRecord::Base
         end
     end
 
-
+    def self.find_venue(name)
+        result = all.find {|venue| venue.name.downcase == name.downcase}
+    end
 
 end
