@@ -28,9 +28,9 @@ class Artist < ActiveRecord::Base
         #binding.pry
     end
 
-    def search_events()
-        Event.all.select do  |event| 
-            event.artist == self
+    def get_events()
+        Event.all.select do |event|
+            event.artist.artistname.downcase == self.artistname.downcase
         end
     end
 
@@ -40,6 +40,9 @@ class Artist < ActiveRecord::Base
             artist.artistID == id
         end
     end
-    
+    def self.find_artist(name)
+        result = all.find {|artist| artist.artistname.downcase == name.downcase}
+    end
+
 
 end
