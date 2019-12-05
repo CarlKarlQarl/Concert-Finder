@@ -27,18 +27,6 @@ class Venue < ActiveRecord::Base
         end
     end
 
-    def self.load(data)
-        data = data.uniq
-        data.each do |e|
-            Venue.new(e["VenueID"],e["Name"],e["CityID"],e["City"],e["State"],e["Zip"])
-        end
-        puts @@all.count.to_s + " Venues loaded."
-        sleep(0.5)
-        #binding.pry
-    end
-
-
-
 
     def self.by_id(id)
         #binding.pry
@@ -50,5 +38,4 @@ class Venue < ActiveRecord::Base
     def self.find_venue(name)
         result = all.find {|venue| venue.name.downcase == name.downcase}
     end
-
 end

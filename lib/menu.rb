@@ -42,19 +42,20 @@ class Menu
             puts "No results found for that zip code."
         else
             venues = find_city user_city
-            
-            relevant_venue_ids = venues.map do |venue|
-                venue["id"]
-            end
 
-            relevant_events = Event.all.select do |event|
-                relevant_venue_ids.include? event["venue_id"]
-            end
+            relevant_events = Venue.find_relevant_events venues
         
             puts "Here are the events for #{user_city}:"
             relevant_events.length.times do |index|
                 puts "#{index}) #{relevant_events[index].artist.artistname} played at #{relevant_events[index].venue.name} on #{relevant_events[index].playdate}"
             end
+
+            puts ""
+            print "Press Return to go back to the main menu..."
+            pause = gets
+            #For testing, looping back to beginning
+            system "clear"
+            start_menu
         end
     end
 
