@@ -38,4 +38,11 @@ class Venue < ActiveRecord::Base
     def self.find_venue(name)
         result = all.find {|venue| venue.name.downcase == name.downcase}
     end
+
+
+    def self.find_cities(zip)
+        Venue.all.select do |venue|
+            venue.zip == zip
+        end
+    end
 end
