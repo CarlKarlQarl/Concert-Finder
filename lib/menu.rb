@@ -38,24 +38,23 @@ class Menu
         user_city = gets.chomp
         puts ""
 
-        if find_city user_city
-            puts "Here are the upcoming events for #{user_city}:"
-            puts ""
-            #Run find_city again and post results here
-            #Hard coded sample below
-            puts "Bon Jovi at Lorum Ipsum on 1/12"
-            puts "Enya at Some Place on 1/25"
-            puts "Queen at Another Place on 1/3"
-            puts ""
-            print "Press Return to go back to the main menu..."
-            pause = gets
-            #For testing, looping back to beginning
-            system "clear"
-            start_menu
+        if find_city(user_city).length == 0
+            puts "No results found for that zip code."
         else
-            puts "No results found for that zip code. Try again."
-            puts ""
-            city_search_menu
+            venues = find_city user_city
+            
+            relevant_venue_ids = venues.map do |venue|
+                venue["id"]
+            end
+
+            relevant_events = Event.all.select do |event|
+                relevant_venue_ids.include? event["venue_id"]
+            end
+        
+            puts "Here are the events for #{user_city}:"
+            relevant_events.length.times do |index|
+                puts "#{index}) #{relevant_events[index].artist.artistname} played at #{relevant_events[index].venue.name} on #{relevant_events[index].playdate}"
+            end
         end
     end
 
@@ -125,13 +124,9 @@ class Menu
     #i.e. length = 0 means no results, length > 0 means success
 
     def find_city city
-        #Receives the zip code that the user entered
-        #Returns events within that zip code
-        #If no results are found, returns nil
-        #For now, will return true or false, as needed for testing
-
-        true
-        #false
+        Venue.all.select do |venue|
+            venue.zip == city
+        end
     end
 
 
