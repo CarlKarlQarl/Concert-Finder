@@ -65,14 +65,19 @@ class Menu
         user_artist = gets.chomp
         puts ""
 
-        if find_artist user_artist
+        result = Artist.find_artist(user_artist)
+
+        binding.pry
+        if result
+            shows = result.get_events()
             puts "Here are the upcoming events for #{user_artist}:"
             puts ""
-            #Run find_artist again and post results here
-            #Hard coded sample below
-            puts "Lorum Ipsum in Denver on 1/29"
-            puts "Some Place in Boulder on 1/23"
-            puts "Another Place in Arvada on 1/13"
+
+            #binding.pry
+            puts "#{result.artistname} is playing #{shows.length} shows..."
+            shows.each {|event| puts "#{event.venue.name} on #{event.playdate}" }
+
+
             puts ""
             print "Press Return to go back to the main menu..."
             pause = gets
@@ -129,15 +134,7 @@ class Menu
         #false
     end
 
-    def find_artist artist
-        #Receives the artist name that the user entered
-        #Returns events with that artist
-        #If no results are found, returns nil
-        #For now, will return true or false, as needed for testing
 
-        true
-        #false
-    end
 
     def find_venue venue
         #Receives the venue name that the user entered
