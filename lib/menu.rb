@@ -1,8 +1,8 @@
 class Menu
     def start_menu
         system "clear"
-        puts " Welcome to Concert Finder ".green.on_black
-        puts " Search for Colorado events happening in January 2020 ".green.on_black
+        puts " Welcome to Concert History Finder ".green.on_black
+        puts " Search history of #{Event.all.count} Colorado events".green.on_black
         main_menu
     end
 
@@ -44,8 +44,12 @@ class Menu
     def city_search_menu
         system "clear"
         puts "--City Search--".white.on_black
-        print "Enter your city's zip code: "
+        print "Enter your city's zip code (q to quit): "
         user_city = gets.chomp
+        if user_city.downcase == "q"
+            system "clear"
+            main_menu
+        end
         puts ""
 
         return_to_main_menu user_city
@@ -80,24 +84,42 @@ class Menu
     def artist_search_menu
         system "clear"
         puts "--Artist Search--".white.on_black
-        print "Enter the artist or band's name: "
-        user_artist = gets.chomp
-        puts ""
-
-        return_to_main_menu user_artist
+        puts "There are #{Artist.all.count} artists on record"
 
         result = Artist.find_artist(user_artist)
 
         #binding.pry
-        if result
-            shows = result.get_events()
-            puts "Here are the events for #{user_artist}:"
+        while true
+            print "Enter the artist or band's name (q to quit): "
+            user_artist = gets.chomp
             puts ""
+            if user_artist.downcase == "q"
+                system "clear"
+                main_menu
+            end
 
-            #binding.pry
-            puts "#{result.artistname} played #{shows.length} show(s)..."
-            shows.each {|event| puts "#{event.venue.name} played at #{event.venue.name} on #{event.playdate}" }
+            result = Artist.find_artist(user_artist)
+            if result
+                shows = result.get_events()
+                puts "Here are the events for #{user_artist}:"
+                puts ""
 
+                #binding.pry
+                puts "#{result.artistname} played #{shows.length} show(s)..."
+                shows.each {|event| puts "#{event.venue.name} on #{event.playdate}" }
+
+
+                puts ""
+                print "Press Return to go back to the main menu..."
+                pause = gets
+                #For testing, looping back to beginning
+                system "clear"
+                start_menu
+            else
+                puts "No results found for '#{user_artist}'. Try again."
+                puts ""
+                #artist_search_menu
+            end
 
             puts ""
             print "Press Return to go back to the main menu..."
@@ -109,14 +131,19 @@ class Menu
             puts "No results found for that artist. Try again."
             puts ""
             artist_search_menu
+
         end
     end
 
     def venue_search_menu
         system "clear"
         puts "--Venue Search--".white.on_black
-        print "Enter the venue's name: "
-        user_venue = gets.chomp
+        puts "There are #{Venue.all.count} venues on record"
+        print "Enter the venue's name (q to quit): "
+        user_venue = gets.chomp        
+        if user_venue.downcase == "q"
+            main_menu
+        end
         puts ""
 
         return_to_main_menu user_venue
@@ -135,7 +162,6 @@ class Menu
             print "Press Return to go back to the main menu..."
             pause = gets
             #For testing, looping back to beginning
-            #system "clear"
             start_menu
         else
             puts "No results found for that venue. Try again."
