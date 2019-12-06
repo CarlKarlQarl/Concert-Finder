@@ -1,6 +1,6 @@
 class Menu
     def main_menu
-        system "clear"
+        system "clear"    
         puts " Welcome to Concert History Finder ".green.on_black
         puts " Search history of #{Event.all.count} Colorado events".green.on_black
 
@@ -27,7 +27,7 @@ class Menu
             when "5"
                 most_active_venues_menu
             when "0"
-                puts "Thank you for using Concert Finder!"
+                puts "Thank you for using Concert History Finder!"
                 exit
             else
                 puts ""
@@ -61,9 +61,10 @@ class Menu
             
                 relevant_events.flatten!
 
-                puts "Here are the events for #{user_city}:"
+                puts "There were #{relevant_events.length} result(s) found for #{user_city}:"
+                puts ""
                 relevant_events.length.times do |index|
-                    puts "#{index}) #{relevant_events[index].artist.artistname} played at #{relevant_events[index].venue.name} on #{relevant_events[index].playdate}"
+                    puts "#{relevant_events[index].artist.artistname}".red + " played at" + " #{relevant_events[index].venue.name}".green + " on " + "#{relevant_events[index].playdate}".blue
                 end
 
                 puts ""
@@ -126,7 +127,7 @@ class Menu
                     puts "\nThere are #{shows.length} events for #{artist.artistname}:\n"
                 end
 
-                shows.each {|event| puts "#{event.venue.name} on #{event.playdate}" }
+                shows.each {|event| puts "#{event.venue.name}".red + " on " + "#{event.playdate}".blue }
                 print "\nPress Return to go back to the main menu..."
 
                 pause = gets
@@ -189,7 +190,7 @@ class Menu
                 end
                 #Run find_venue again and post results here
                 #Hard coded sample below
-                events.each {|event| puts "#{event.artist.artistname} played on #{event.playdate}"}
+                events.each {|event| puts "#{event.artist.artistname}".red + " played on " + "#{event.playdate}".blue}
 
                 puts ""
                 print "\nPress Return to go back to the main menu..."
@@ -229,7 +230,7 @@ class Menu
         most_active = Venue.most_active_venues
 
         10.times do |index|
-            puts "#{most_active[index][0].name} had #{most_active[index][1]} events"
+            puts "#{most_active[index][0].name}".red + " had " + "#{most_active[index][1]}".blue + " events"
         end
 
         puts ""
