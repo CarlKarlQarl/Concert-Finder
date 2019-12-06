@@ -79,7 +79,7 @@ class Menu
     def artist_search_menu
         system "clear"
         puts "--Artist Search--".white.on_black
-        puts "There are #{Artist.all.count} artists on record"
+        puts "There are " + "#{Artist.all.count}".red + " artists on record"
 
         #binding.pry
         while true
@@ -93,7 +93,7 @@ class Menu
             
                 if artists.count > 1 then
                     i = 0
-                    puts "#{artists.count} found for search string #{user_input}."
+                    puts "#{artists.count}".blue + " found for search string \"#{user_input}\"."
                     while i < artists.count
                         puts "[#{i +1}] #{artists[i].artistname}"
                         i += 1
@@ -141,7 +141,7 @@ class Menu
     def venue_search_menu
         system "clear"
         puts "--Venue Search--".white.on_black
-        puts "There are #{Venue.all.count} venues on record"
+        puts "There are " + "#{Venue.all.count}".red + " venues on record"
         while true
 
             print "Enter the venue's name (q to quit): "
@@ -154,7 +154,7 @@ class Menu
             
                 if venues.count > 1 then
                     i = 0
-                    puts "#{venues.count} found for search string #{user_input}."
+                    puts "#{venues.count}".blue + " found for search string \"#{user_input}\"."
                     while i < venues.count
                         puts "[#{i +1}] #{venues[i].name}"
                         i += 1
@@ -192,7 +192,6 @@ class Menu
                 #Hard coded sample below
                 events.each {|event| puts "#{event.artist.artistname}".red + " played on " + "#{event.playdate}".blue}
 
-                puts ""
                 print "\nPress Return to go back to the main menu..."
                 pause = gets
                 main_menu
